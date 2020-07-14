@@ -1,4 +1,4 @@
-package com.wmjun.chianti.application.common
+package com.wmjun.chianti.infrastructure.pagination
 
 const val DEFAULT_PAGE_SIZE = 15
 const val DEFAULT_PAGE = 1

@@ -13,10 +13,10 @@ data class User(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "user_id")
-        val id: Long? = null,
+        val userId: Long? = null,
 
-        @Column(name = "email", nullable = false, length = 255)
-        val email: String,
+        @Column(name = "login_id", nullable = false, length = 255)
+        val loginId: String,
 
         @Column(name = "password", nullable = false, length = 255)
         var pw: String,
@@ -25,7 +25,7 @@ data class User(
         override var updatedAt: LocalDateTime = LocalDateTime.now()
 ) : BaseEntity(createdAt, updatedAt), UserDetails {
 
-    override fun getUsername(): String = this.email
+    override fun getUsername(): String = this.loginId
     override fun getPassword(): String = this.pw
 
     /**

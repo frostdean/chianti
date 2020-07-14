@@ -4,6 +4,6 @@ import com.wmjun.chianti.domain.user.User
 import org.springframework.security.core.userdetails.UserDetailsService
 
 interface UserService : UserDetailsService {
-    fun signUp(email: String, pw: String): User
+    fun signUp(loginId: String, pw: String): User
     override fun loadUserByUsername(username: String): User
 }

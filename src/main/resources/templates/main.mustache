@@ -6,10 +6,19 @@
       <div class="col-md-3"></div>
       <div class="col-md-6">
         <h3 class="display-4 my-4">장소를 검색해 보세요</h3>
-        <form id="searchForm" class="" method="get" action="/places">
+        <form id="searchForm" class="" method="get" action="/places" onsubmit="return searchFormSubmit()">
           <input type="text" class="form-control border-warning" id="searchKeyword" name="keyword" placeholder="🙏 키워드를 입력하세요">
+          {{#errorMsg}}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>{{errorMsg}}</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          {{/errorMsg}}
+
+          <button type="submit" class="my-2 btn text-white btn-warning" id="searchBtn">검색</button>
         </form>
-        <button class="btn btn-lg text-white btn-warning" id="searchBtn">검색</button>
       </div>
       <div class="col-md-3"></div>
     </div>
@@ -36,11 +45,13 @@
 {{>layout/footer}}
 
 <script type="text/javascript">
-  $("#searchBtn").click(function () {
-    if ($("#searchKeyword").val().trim() != "") {
-      $("#searchForm").submit();
-    } else {
+
+  function searchFormSubmit() {
+    if ($("#searchKeyword").val().trim() == "") {
       alert("키워드를 입력하세요")
+      return false
     }
-  });
+  }
+
+  // $("#searchBtn").click();
 </script>

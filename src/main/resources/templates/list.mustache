@@ -62,7 +62,9 @@
 
   let firstPageNum = (currentPage - prevCount) < 1 ? 1 : (currentPage - prevCount);
   let lastPageNum = Math.min(firstPageNum + prevCount + nextCount, totalPage);
-  firstPageNum = firstPageNum - ((prevCount + nextCount) - (lastPageNum - firstPageNum));
+  if (currentPage > prevCount) {
+    firstPageNum = firstPageNum - ((prevCount + nextCount) - (lastPageNum - firstPageNum));
+  }
 
   for (let i = firstPageNum; i <= lastPageNum; i++) {
     let active = currentPage === i ? "bg-warning" : "";

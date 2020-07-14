@@ -11,8 +11,5 @@ class SampleUserLoader(
     override fun afterPropertiesSet() {
         userService.signUp("test1@test.com", "1234")
         userService.signUp("test2@test.com", "1234")
-        userService.signUp("test3@test.com", "1234")
-        userService.signUp("test4@test.com", "1234")
-        userService.signUp("test5@test.com", "1234")
     }
 }

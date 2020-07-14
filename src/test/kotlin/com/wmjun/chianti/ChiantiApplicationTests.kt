@@ -27,9 +27,4 @@ class ChiantiApplicationTests {
         assertNotNull(applicationContext)
         assertNotNull(kakaoPlaceClient)
     }
-
-    @Test
-    fun findUser(){
-        val user = userService.loadUserByUsername("test1@test.com")
-    }
 }

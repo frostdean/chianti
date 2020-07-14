@@ -1,4 +1,4 @@
-package com.wmjun.chianti.application.common
+package com.wmjun.chianti.infrastructure.pagination
 
 data class Page<T>(
         val data: Collection<T>,
