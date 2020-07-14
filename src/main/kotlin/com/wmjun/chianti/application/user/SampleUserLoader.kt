@@ -9,7 +9,7 @@ class SampleUserLoader(
         private val userService: UserService
 ) : InitializingBean {
     override fun afterPropertiesSet() {
-        userService.signUp("test1@test.com", "1234")
-        userService.signUp("test2@test.com", "1234")
+        userService.signUp("ryan", "chianti")
+        userService.signUp("kon", "chianti")
     }
 }

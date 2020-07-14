@@ -89,16 +89,6 @@ class GlobalExceptionHandler {
                 this.viewName = "main"
             }
 
-
-    @ExceptionHandler(UserNotFoundException::class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    fun userNotFound(e: Exception): String {
-
-        logger.error("UserNotFound !", e)
-
-        return "error/user_not_found"
-    }
-
     @ExceptionHandler(value = [ExternalApiException::class, Throwable::class])
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     fun unexpectedError(e: Exception): String {
