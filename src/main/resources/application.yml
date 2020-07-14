@@ -9,12 +9,17 @@ spring:
   jpa:
     database: h2
     hibernate.ddl-auto: update
+    open-in-view: false
     properties:
       hibernate:
         format_sql: true
         show_sql: true
         jdbc:
           time_zone: UTC
+  cache:
+    type: jcache
+    jcache:
+      config: classpath:ehcache.xml
 kakao:
   api:
     base-url: http://dapi.kakao.com

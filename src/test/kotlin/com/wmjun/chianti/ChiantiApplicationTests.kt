@@ -1,5 +1,6 @@
 package com.wmjun.chianti
 
+import com.wmjun.chianti.application.user.service.UserService
 import com.wmjun.chianti.infrastructure.place.kakao.KakaoPlaceClient
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
@@ -18,9 +19,17 @@ class ChiantiApplicationTests {
     @Autowired
     lateinit var kakaoPlaceClient: KakaoPlaceClient
 
+    @Autowired
+    lateinit var userService: UserService
+
     @Test
     fun contextLoads() {
         assertNotNull(applicationContext)
         assertNotNull(kakaoPlaceClient)
+    }
+
+    @Test
+    fun findUser(){
+        val user = userService.loadUserByUsername("test1@test.com")
     }
 }

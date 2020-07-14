@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
-data class KakaoPlace(
+data class KakaoPlaceResponse(
         val meta: Meta,
-        val documents: List<Place>
+        val documents: List<KakaoPlace>
 ) {
     @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
     data class Meta(
@@ -24,7 +24,7 @@ data class KakaoPlace(
     )
 
     @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
-    data class Place(
+    data class KakaoPlace(
             val id: String,
             val placeName: String,
             val categoryName: String,

@@ -18,8 +18,7 @@ import java.util.concurrent.TimeUnit
 class KakaoPlaceConfiguration {
 
     @Bean
-    fun kakaoHttpClient(@Value("\${kakao.api.key}") apiKey: String,
-                        httpConfig: HttpConfig): OkHttpClient =
+    fun kakaoHttpClient(@Value("\${kakao.api.key}") apiKey: String, httpConfig: HttpConfig): OkHttpClient =
             OkHttpClient.Builder()
                     .callTimeout(httpConfig.callTimeout, TimeUnit.MILLISECONDS)
                     .connectTimeout(httpConfig.connectionTimeout, TimeUnit.MILLISECONDS)
@@ -35,7 +34,7 @@ class KakaoPlaceConfiguration {
 
 
     @Bean
-    fun kakaoApiClient(kakaoHttpClient: OkHttpClient, @Value("\${kakao.api.base-url}") baseUrl: String): KakaoPlaceClient =
+    fun kakaoPlaceClient(kakaoHttpClient: OkHttpClient, @Value("\${kakao.api.base-url}") baseUrl: String): KakaoPlaceClient =
             Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(JacksonConverterFactory.create(jacksonObjectMapper().findAndRegisterModules()))
