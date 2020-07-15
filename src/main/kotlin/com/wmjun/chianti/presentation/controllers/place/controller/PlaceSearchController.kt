@@ -1,7 +1,7 @@
 package com.wmjun.chianti.presentation.controllers.place.controller
 
 import com.wmjun.chianti.application.hotkeyword.service.HotKeywordService
-import com.wmjun.chianti.application.place.PlaceService
+import com.wmjun.chianti.application.place.service.PlaceService
 import com.wmjun.chianti.infrastructure.pagination.DEFAULT_PAGE
 import com.wmjun.chianti.presentation.controllers.common.dto.ChiantiResponse
 import com.wmjun.chianti.presentation.controllers.common.dto.ResponseMeta
@@ -24,8 +24,8 @@ class PlaceSearchController(private val placeService: PlaceService,
         if (keyword.isBlank()) {
             throw InvalidKeywordException("유효하지 않은 키워드 입니다.")
         }
+        increaseSearchCount(page, keyword)
 
-        page ?: hotKeywordService.increaseSearchCount(keyword)
         val result = getPlaces(keyword, page)
 
         model.addAttribute("keyword", keyword)
@@ -34,14 +34,24 @@ class PlaceSearchController(private val placeService: PlaceService,
         return "list"
     }
 
+    /**
+     * count올리다 에러나도 서비스는 정상 동작시켜야한다.
+     */
+    private fun increaseSearchCount(page: Int?, keyword: String) {
+        try {
+            page ?: hotKeywordService.increaseSearchCount(keyword)
+        } catch (e: Exception) {
+            logger.error("error occured during increasing search count", e)
+        }
+    }
+
     private fun getPlaces(keyword: String, page: Int?): ChiantiResponse<List<PlaceResponse>> {
         return placeService.getPlacesByKeyword(keyword, page ?: DEFAULT_PAGE)
-                ?.let {
+                .let {
                     ChiantiResponse.success(
                             data = it.data.map { place -> PlaceResponse.fromPlace(place) },
                             meta = ResponseMeta(it.pagination))
                 }
-                ?: ChiantiResponse.notFound()
     }
 
 }

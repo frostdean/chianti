@@ -9,13 +9,9 @@ data class ChiantiResponse<T>(val status: Status,
 
     companion object {
         fun <T> success(data: T? = null, msg: String? = null, meta: ResponseMeta? = null) = ChiantiResponse(Status.SUCCESS, data, msg, meta)
-        fun <T> notFound(data: T? = null, msg: String? = null, meta: ResponseMeta? = null) = ChiantiResponse(Status.NOT_FOUND, data, msg, meta)
-        fun <T> error(data: T? = null, msg: String? = null, meta: ResponseMeta? = null) = ChiantiResponse(Status.SERVER_ERROR, data, msg, meta)
     }
 
     enum class Status(@JsonValue val code: Int) {
         SUCCESS(0),
-        NOT_FOUND(404),
-        SERVER_ERROR(500)
     }
 }

@@ -15,7 +15,7 @@ data class User(
         @Column(name = "user_id")
         val userId: Long? = null,
 
-        @Column(name = "login_id", nullable = false, length = 255)
+        @Column(name = "login_id", nullable = false, length = 255, unique = true)
         val loginId: String,
 
         @Column(name = "password", nullable = false, length = 255)

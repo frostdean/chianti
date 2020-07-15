@@ -6,5 +6,5 @@ import com.wmjun.chianti.infrastructure.pagination.DEFAULT_PAGE_SIZE
 import com.wmjun.chianti.infrastructure.pagination.Page
 
 interface PlaceRepository {
-    fun search(keyword: String, page: Int = DEFAULT_PAGE, pageSize: Int = DEFAULT_PAGE_SIZE): Page<Place>?
+    fun search(keyword: String, page: Int = DEFAULT_PAGE, pageSize: Int = DEFAULT_PAGE_SIZE): Page<Place>
 }

@@ -2,7 +2,6 @@ package com.wmjun.chianti.presentation.controllers.advice
 
 import com.wmjun.chianti.presentation.exception.ExternalApiException
 import com.wmjun.chianti.presentation.exception.InvalidKeywordException
-import com.wmjun.chianti.presentation.exception.UserNotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.beans.TypeMismatchException
 import org.springframework.http.HttpStatus

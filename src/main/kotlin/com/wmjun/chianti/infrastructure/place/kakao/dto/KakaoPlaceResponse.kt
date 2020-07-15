@@ -13,7 +13,7 @@ data class KakaoPlaceResponse(
             val totalCount: Int,
             val pageableCount: Int,
             val isEnd: Boolean,
-            val sameName: RegionInfo
+            val sameName: RegionInfo?
     )
 
     @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)

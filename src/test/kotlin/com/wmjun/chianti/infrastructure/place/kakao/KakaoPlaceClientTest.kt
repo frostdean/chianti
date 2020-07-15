@@ -1,24 +1,24 @@
 package com.wmjun.chianti.infrastructure.place.kakao
 
+import com.wmjun.chianti.TestWithApplicationContext
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
 
-@ActiveProfiles("test")
-@SpringBootTest
-internal class KakaoPlaceClientTest {
+
+internal class KakaoPlaceClientTest : TestWithApplicationContext() {
 
     @Autowired
-    lateinit var kakaoPlaceClient: KakaoPlaceClient
+    private lateinit var kakaoPlaceClient: KakaoPlaceClient
 
-    //    @RepeatedTest(5)
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = ["서울시청", "카카오", "제주시청"])
     @DisplayName("정상적인 키워드로 검색 하는 경우")
-    fun testValidRequest() {
-        val result = kakaoPlaceClient.findByKeyword("서울시청", 1, 15).execute()
+    fun testValidRequest(keyword: String) {
+        val result = kakaoPlaceClient.findByKeyword(keyword, 1, 15).execute()
 
         assertTrue(result.isSuccessful)
         assertNotNull(result.body())
@@ -28,6 +28,8 @@ internal class KakaoPlaceClientTest {
     @DisplayName("유효하지 않은 키워드로 검색하는 경우")
     fun testBadKeywordRequest() {
         val result = kakaoPlaceClient.findByKeyword("", 1, 15).execute()
+
+        println(result.body())
 
         assertFalse(result.isSuccessful)
         assertNotNull(result.errorBody())

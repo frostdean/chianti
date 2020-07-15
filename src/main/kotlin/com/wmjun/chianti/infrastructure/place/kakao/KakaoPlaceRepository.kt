@@ -8,7 +8,6 @@ import com.wmjun.chianti.infrastructure.pagination.Page
 import com.wmjun.chianti.infrastructure.pagination.Pagination
 import com.wmjun.chianti.infrastructure.place.kakao.dto.KakaoPlaceResponse
 import com.wmjun.chianti.presentation.exception.ExternalApiException
-import org.slf4j.LoggerFactory
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Repository
 import retrofit2.Response
@@ -18,10 +17,8 @@ private const val KAKAO_MAP_URL = "https://map.kakao.com/link/map"
 @Repository
 class KakaoPlaceRepository(private val kakaoPlaceClient: KakaoPlaceClient) : PlaceRepository {
 
-    private val logger = LoggerFactory.getLogger(KakaoPlaceRepository::class.java)
-
-    @Cacheable(cacheNames = ["kakao-place"], key = "#keyword +':'+ #page +':'+ #pageSize", unless = "#result == null")
-    override fun search(keyword: String, page: Int, pageSize: Int): Page<Place>? {
+    @Cacheable(cacheNames = ["kakao-place"], key = "#keyword +':'+ #page +':'+ #pageSize")
+    override fun search(keyword: String, page: Int, pageSize: Int): Page<Place> {
 
         val apiResult = kakaoPlaceClient.findByKeyword(keyword, page, pageSize).execute()
         if (!apiResult.isSuccessful) {
