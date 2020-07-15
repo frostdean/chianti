@@ -33,7 +33,7 @@ internal class PlaceSearchHomeControllerTest {
     @Test
     @DisplayName("로그인 하지 않고 키워드로 컨트롤러 호출")
     fun testNotLoginUser() {
-        whenever(hotKeywordService.getTop10Keyword()).then { }
+        whenever(hotKeywordService.getTop10Keyword()).thenReturn(listOf())
 
         mockMvc.perform(MockMvcRequestBuilders.get("/")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -45,14 +45,14 @@ internal class PlaceSearchHomeControllerTest {
     @WithMockUser("ALL")
     @DisplayName("메인 페이지 호출")
     fun testGetHome() {
-        whenever(hotKeywordService.getTop10Keyword()).then { }
+        whenever(hotKeywordService.getTop10Keyword()).thenReturn(listOf())
 
         mockMvc.perform(MockMvcRequestBuilders.get("/")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andExpect {
-                    verify(hotKeywordService, atLeastOnce()).increaseSearchCount(any())
+                    verify(hotKeywordService, atLeastOnce()).getTop10Keyword()
                 }
                 .andExpect {
                     content().string("장소를 검색해 보세요")
