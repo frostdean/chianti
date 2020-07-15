@@ -1,0 +1,76 @@
+{{>layout/header}}
+<body>
+<div class="jumbotron">
+  <div class="container">
+    <div class="row my-4">
+      <h3 class="display-4"> "{{keyword}}"의 장소 검색 결과({{result.meta.pagination.totalCount}}건)</h3>
+
+    </div>
+    <div class="row">
+      <a class="text-lg-right text-dark" href="/">홈으로 돌아가기</a>
+    </div>
+
+    <hr class="mb-5">
+
+    <div class="row">
+      {{#result.data}}
+        <div class="col-md-4">
+          <div class="card border-warning mb-3 ">
+            <div class="card-header bg-warning">
+              <h4 class="card-title">{{placeName}}</h4>
+              <div class="text-muted">{{placeGroupName}}</div>
+            </div>
+            <div class="card-body">
+              <p class="text-left">📞 {{phone}}</p>
+              <p class="text-left">🏠 {{roadAddress}}</p>
+              <p class="text-left text-muted">🏠 (지번) {{address}}</p>
+              <div class="text-right">
+                <a href="{{externalMapUrl}}" class=" btn-sm btn-warning" target="_blank">지도에서 확인</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/result.data}}
+    </div>
+
+    <div>
+      <section>
+        <div id="data-container"></div>
+        <div id="pagination"></div>
+      </section>
+    </div>
+
+    <nav class="my-3">
+      <ul class="pagination justify-content-center" id="page-navigation">
+      </ul>
+    </nav>
+
+  </div>
+</div>
+</body>
+
+{{>layout/footer}}
+
+<script type="text/javascript">
+
+  const prevCount = 4
+  const nextCount = 5
+
+
+  let currentPage = parseInt({{result.meta.pagination.currentPage}});
+  let totalPage = parseInt({{result.meta.pagination.totalPage}});
+
+  let firstPageNum = (currentPage - prevCount) < 1 ? 1 : (currentPage - prevCount);
+  let lastPageNum = Math.min(firstPageNum + prevCount + nextCount, totalPage);
+  if (currentPage > prevCount) {
+    firstPageNum = firstPageNum - ((prevCount + nextCount) - (lastPageNum - firstPageNum));
+  }
+
+  for (let i = firstPageNum; i <= lastPageNum; i++) {
+    let active = currentPage === i ? "bg-warning" : "";
+    let btn = "<li class='page-item'> <a class='page-link border-warning text-dark " + active + "'href='/places?keyword={{keyword}}&page=" + i + "'>" + i + "</a></li>";
+    $("#page-navigation").append(btn)
+  }
+
+
+</script>
